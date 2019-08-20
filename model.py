@@ -68,7 +68,7 @@ class GCFW(nn.Module):
 		user = self.convert_one_hot(user, self.user_size)
 		item = self.convert_one_hot(item, self.item_size)
 
-		user_mean = self.embed_user_mean(user).unsqueeze(1)				# (batch_size, 1, embed_size)
+		user_mean = self.embed_user_mean(user).unsqueeze(1)		# (batch_size, 1, embed_size)
 		user_std = (F.elu(self.embed_user_var(user)) + 1).unsqueeze(1)	# (batch_size, 1, embed_size)
 		item_mean = self.embed_item_mean(item).unsqueeze(1)
 		item_std = (F.elu(self.embed_item_var(item)) + 1).unsqueeze(1)
@@ -77,7 +77,7 @@ class GCFW(nn.Module):
 		samples_user = torch.randn((size, self.k, self.embed_size)).to(self.device) * user_std + user_mean 	# (batch_size, k, embed_size)
 		samples_item = torch.randn((size, self.k, self.embed_size)).to(self.device) * item_std + item_mean
 
-		samples_user = samples_user.unsqueeze(2)				# (batch_size, k, 1, embed_size)
+		samples_user = samples_user.unsqueeze(2)			# (batch_size, k, 1, embed_size)
 		samples_user = samples_user.repeat(1, 1, self.k, 1)		# (batch_size, k, k, embed_size)
 
 		samples_item = samples_item.unsqueeze(2)
