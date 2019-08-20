@@ -13,9 +13,9 @@ class Flatten(nn.Module):
 		return x.view(x.size()[0], -1)
 
 
-class GCFW(nn.Module):
+class model(nn.Module):
 	def __init__(self, user_size, item_size, conv_channel=[64,64], conv_size=[1,3], embed_size=128, dropout=0.2, k=9, device="cuda"):
-		super(GCFW, self).__init__()
+		super(model, self).__init__()
 		self.user_size = user_size
 		self.item_size = item_size
 		self.embed_size = embed_size
